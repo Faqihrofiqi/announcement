@@ -172,20 +172,38 @@ const ResultView = ({ student, onLogout }) => {
               DATA IDENTITAS PESERTA DIDIK
               <span className="flex-1 h-[1px] bg-slate-200"></span>
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                { label: 'Nama Lengkap', value: student.nama_siswa, icon: User, color: 'text-green-500', bg: 'bg-green-50' },
-                { label: 'NISN', value: student.nisn, icon: Hash, color: 'text-emerald-500', bg: 'bg-emerald-50' },
-                { label: 'Nomor Peserta', value: student.nomor_peserta, icon: FileText, color: 'text-emerald-500', bg: 'bg-emerald-50' },
-                { label: 'Tempat, Tanggal Lahir', value: placeDateOfBirth, icon: MapPin, color: 'text-emerald-500', bg: 'bg-emerald-50' },
-                { label: 'Kelas Asal', value: student.kelas, icon: GraduationCap, color: 'text-emerald-500', bg: 'bg-emerald-50' }
-              ].map((item, i) => (
-                <div key={i} className={`${item.bg} p-6 rounded-3xl border border-white shadow-sm hover:shadow-md transition-all duration-300 group`}>
-                  <item.icon size={20} className={`${item.color} mb-3 group-hover:scale-110 transition-transform`} />
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.label}</p>
-                  <p className="text-slate-900 font-black text-sm break-words">{item.value || '-'}</p>
+            
+            <div className="space-y-4">
+              {/* Primary Identity: Name */}
+              <div className="bg-green-50/50 p-6 md:p-8 rounded-[2rem] border border-white shadow-sm hover:shadow-md transition-all duration-300 group flex items-center gap-6">
+                <div className="bg-white p-4 rounded-2xl shadow-sm group-hover:scale-110 transition-transform duration-500 text-green-500">
+                  <User size={24} />
                 </div>
-              ))}
+                <div>
+                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Nama Lengkap</p>
+                  <p className="text-slate-900 font-black text-lg md:text-xl break-words leading-tight uppercase">{student.nama_siswa}</p>
+                </div>
+              </div>
+
+              {/* Secondary Identity Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  { label: 'NISN', value: student.nisn, icon: Hash, color: 'text-emerald-500', bg: 'bg-slate-50/50' },
+                  { label: 'Nomor Peserta', value: student.nomor_peserta, icon: FileText, color: 'text-emerald-500', bg: 'bg-slate-50/50' },
+                  { label: 'Kelas Asal', value: student.kelas, icon: GraduationCap, color: 'text-emerald-500', bg: 'bg-slate-50/50' },
+                  { label: 'Tempat, Tanggal Lahir', value: placeDateOfBirth, icon: MapPin, color: 'text-emerald-500', bg: 'bg-slate-50/50' }
+                ].map((item, i) => (
+                  <div key={i} className={`${item.bg} p-5 rounded-[1.5rem] border border-white shadow-sm hover:shadow-md transition-all duration-300 group flex items-center gap-4`}>
+                    <div className="bg-white p-3 rounded-xl shadow-sm group-hover:scale-110 transition-transform duration-500 text-emerald-500 shrink-0">
+                      <item.icon size={18} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-0.5">{item.label}</p>
+                      <p className="text-slate-900 font-black text-xs md:text-sm truncate md:whitespace-normal">{item.value || '-'}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
 
