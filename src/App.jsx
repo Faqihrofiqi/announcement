@@ -111,12 +111,12 @@ function App() {
             <div className="relative group">
               <div className="absolute inset-0 bg-green-500 rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity"></div>
               <div className="relative bg-white p-2 rounded-2xl shadow-sm border border-slate-100">
-                <img src={logo} alt="Logo MTs AL IKHSAN BEJI" className="w-10 h-10 object-contain" />
+                <img src={logo} alt="Logo MTs AL IKHSAN BEJI KEDUNGBANTENG" className="w-10 h-10 object-contain" />
               </div>
             </div>
             <div>
               <h1 className="text-lg md:text-xl font-black text-slate-900 tracking-tighter leading-none">
-                MTs AL IKHSAN BEJI
+                MTs AL IKHSAN BEJI KEDUNGBANTENG
               </h1>
               <p className="text-[10px] font-black text-green-600 uppercase tracking-[0.2em] mt-1">
                 Portal Resmi Pengumuman
@@ -187,7 +187,7 @@ function App() {
       <footer className="py-10 px-6 text-center border-t border-slate-200/50 bg-white/30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            &copy; 2026 MTs Al Ikhsan Beji • Dikembangkan dengan ❤️ untuk Siswa
+            &copy; 2026 MTs Al Ikhsan Beji Kedungbanteng • Dikembangkan dengan ❤️ untuk Siswa
           </p>
           <div className="flex gap-8">
             {['Pusat Bantuan', 'Kebijakan Privasi', 'Kontak Madrasah'].map((item) => (

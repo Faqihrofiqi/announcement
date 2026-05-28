@@ -1,12 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Download, Share2, LogOut, CheckCircle, XCircle, User, Hash, GraduationCap, Loader2, Award, AlertTriangle, Sparkles } from 'lucide-react';
-import html2canvas from 'html2canvas';
+import { Download, LogOut, CheckCircle, XCircle, User, Hash, GraduationCap, Award, AlertTriangle, Sparkles, FileText, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
 const ResultView = ({ student, onLogout }) => {
   const resultCardRef = useRef(null);
-  const [isSharing, setIsSharing] = useState(false);
 
   // Trigger Confetti if Lulus
   useEffect(() => {
@@ -41,51 +39,6 @@ const ResultView = ({ student, onLogout }) => {
     }
   };
 
-  const handleShare = async () => {
-    if (resultCardRef.current) {
-      setIsSharing(true);
-      
-      // Beri sedikit waktu agar animasi selesai atau state terupdate
-      await new Promise(r => setTimeout(r, 300));
-
-      try {
-        const canvas = await html2canvas(resultCardRef.current, {
-          backgroundColor: '#FFFFFF', // Gunakan putih bersih untuk background kartu saat dishare
-          scale: 2, // 2x sudah cukup tajam untuk mobile share
-          useCORS: true,
-          allowTaint: true,
-          logging: false,
-          scrollX: 0,
-          scrollY: -window.scrollY, // Pastikan capture tepat di posisi elemen
-        });
-        
-        const image = canvas.toDataURL('image/png', 1.0);
-        const blob = await (await fetch(image)).blob();
-        const file = new File([blob], `Kelulusan_${student.nama_siswa.replace(/\s+/g, '_')}.png`, { type: 'image/png' });
-
-        // Cek dukungan Web Share API v2 (untuk file)
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: 'Hasil Kelulusan MTs Al Ikhsan Beji',
-            text: `Alhamdulillah, saya dinyatakan ${student.status_lulus ? 'LULUS' : 'BELUM LULUS'} di MTs Al Ikhsan Beji!`,
-          });
-        } else {
-          // Fallback: Download jika tidak bisa share file secara native
-          const link = document.createElement('a');
-          link.download = `Hasil_Kelulusan_${student.nama_siswa.replace(/\s+/g, '_')}.png`;
-          link.href = image;
-          link.click();
-        }
-      } catch (err) {
-        console.error('Sharing failed:', err);
-        alert('Gagal memproses gambar. Silakan coba lagi atau screenshot layar Anda.');
-      } finally {
-        setIsSharing(false);
-      }
-    }
-  };
-
   // Explicit check for Lulus status
   const isLulus = student.status_lulus === true;
 
@@ -106,6 +59,23 @@ const ResultView = ({ student, onLogout }) => {
     hidden: { opacity: 0, scale: 0.95 },
     visible: { opacity: 1, scale: 1 }
   };
+
+  // Format Date to Indonesia format
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    try {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(date);
+    } catch (e) {
+      return dateString;
+    }
+  };
+
+  const placeDateOfBirth = `${student.tempat_lahir || ''}, ${formatDate(student.tanggal_lahir)}`.replace(/^, /, '');
 
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4 min-h-[80vh]">
@@ -174,6 +144,7 @@ const ResultView = ({ student, onLogout }) => {
                 <div className="inline-block px-8 py-3 bg-white/20 rounded-full backdrop-blur-md border border-white/30 shadow-xl">
                    <p className="text-sm md:text-xl font-black tracking-widest uppercase">ANDA DINYATAKAN LULUS</p>
                 </div>
+                <p className="mt-4 text-xs md:text-sm font-bold tracking-[0.3em] uppercase opacity-80">DARI MTS AL IKHSAN BEJI KEDUNGBANTENG</p>
               </>
             ) : (
               <>
@@ -201,16 +172,18 @@ const ResultView = ({ student, onLogout }) => {
               DATA IDENTITAS PESERTA DIDIK
               <span className="flex-1 h-[1px] bg-slate-200"></span>
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
                 { label: 'Nama Lengkap', value: student.nama_siswa, icon: User, color: 'text-green-500', bg: 'bg-green-50' },
                 { label: 'NISN', value: student.nisn, icon: Hash, color: 'text-emerald-500', bg: 'bg-emerald-50' },
+                { label: 'Nomor Peserta', value: student.nomor_peserta, icon: FileText, color: 'text-emerald-500', bg: 'bg-emerald-50' },
+                { label: 'Tempat, Tanggal Lahir', value: placeDateOfBirth, icon: MapPin, color: 'text-emerald-500', bg: 'bg-emerald-50' },
                 { label: 'Kelas Asal', value: student.kelas, icon: GraduationCap, color: 'text-emerald-500', bg: 'bg-emerald-50' }
               ].map((item, i) => (
                 <div key={i} className={`${item.bg} p-6 rounded-3xl border border-white shadow-sm hover:shadow-md transition-all duration-300 group`}>
                   <item.icon size={20} className={`${item.color} mb-3 group-hover:scale-110 transition-transform`} />
                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.label}</p>
-                  <p className="text-slate-900 font-black text-sm break-words">{item.value}</p>
+                  <p className="text-slate-900 font-black text-sm break-words">{item.value || '-'}</p>
                 </div>
               ))}
             </div>
@@ -224,7 +197,7 @@ const ResultView = ({ student, onLogout }) => {
                       <Award size={100} />
                    </div>
                    <p className="text-slate-600 text-base italic font-medium leading-relaxed relative z-10 text-center">
-                    "Kesuksesan hari ini adalah pondasi untuk masa depan yang gemilang. Teruslah berkarya dan jaga nama baik almamater MTs Al Ikhsan Beji."
+                    "Kesuksesan hari ini adalah pondasi untuk masa depan yang gemilang. Teruslah berkarya dan jaga nama baik almamater MTs Al Ikhsan Beji Kedungbanteng."
                    </p>
                 </div>
 
@@ -234,21 +207,10 @@ const ResultView = ({ student, onLogout }) => {
                     whileHover={{ y: -5, shadow: '0 25px 50px rgba(0,0,0,0.1)' }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleDownloadSKL}
-                    className="action-button flex-[2] bg-slate-900 text-white font-black py-6 px-8 rounded-2xl shadow-2xl flex items-center justify-center gap-3 transition-all"
+                    className="action-button w-full bg-slate-900 text-white font-black py-6 px-8 rounded-2xl shadow-2xl flex items-center justify-center gap-3 transition-all"
                   >
                     <Download size={22} />
                     UNDUH SKL DIGITAL (PDF)
-                  </motion.button>
-                  <motion.button
-                    data-html2canvas-ignore
-                    whileHover={{ y: -5, bg: '#F8FAFC' }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={handleShare}
-                    disabled={isSharing}
-                    className="action-button flex-1 bg-white border-2 border-slate-200 text-slate-700 font-black py-6 px-8 rounded-2xl flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-                  >
-                    {isSharing ? <Loader2 size={22} className="animate-spin" /> : <Share2 size={22} />}
-                    BAGIKAN HASIL
                   </motion.button>
                 </div>
               </div>
