@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Download, LogOut, CheckCircle, XCircle, User, Hash, GraduationCap, Award, AlertTriangle, Sparkles, FileText, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
 const ResultView = ({ student, onLogout }) => {
