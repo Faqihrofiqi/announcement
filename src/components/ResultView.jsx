@@ -235,7 +235,7 @@ const ResultView = ({ student, onLogout }) => {
           <motion.div variants={itemVariants} className="mb-10">
             <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
               <span className="w-8 h-[1px] bg-slate-200"></span>
-              DATA IDENTITAS PESERTA DIDIK
+              DATA IDENTITAS MURID
               <span className="flex-1 h-[1px] bg-slate-200"></span>
             </h3>
             
