@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Download, LogOut, CheckCircle, XCircle, User, Hash, GraduationCap, Award, AlertTriangle, Sparkles, FileText, MapPin } from 'lucide-react';
+import { LogOut, CheckCircle, XCircle, User, Hash, GraduationCap, Award, AlertTriangle, Sparkles, FileText, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
@@ -37,14 +37,6 @@ const ResultView = ({ student, onLogout }) => {
       };
     }
   }, [student.status_lulus]);
-
-  const handleDownloadSKL = () => {
-    if (student.link_skl) {
-      window.open(student.link_skl, '_blank');
-    } else {
-      alert('Link SKL belum tersedia. Silakan hubungi operator madrasah.');
-    }
-  };
 
   // Explicit check for Lulus status
   const isLulus = student.status_lulus === true;
@@ -269,10 +261,10 @@ const ResultView = ({ student, onLogout }) => {
               {/* Secondary Identity Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
+                  { label: 'Tempat, Tanggal Lahir', value: placeDateOfBirth, icon: MapPin, color: 'text-emerald-500', bg: 'bg-slate-50/50' },
                   { label: 'NISN', value: student.nisn, icon: Hash, color: 'text-emerald-500', bg: 'bg-slate-50/50' },
                   { label: 'Nomor Peserta', value: student.nomor_peserta, icon: FileText, color: 'text-emerald-500', bg: 'bg-slate-50/50' },
-                  { label: 'Kelas Asal', value: student.kelas, icon: GraduationCap, color: 'text-emerald-500', bg: 'bg-slate-50/50' },
-                  { label: 'Tempat, Tanggal Lahir', value: placeDateOfBirth, icon: MapPin, color: 'text-emerald-500', bg: 'bg-slate-50/50' }
+                  { label: 'Kelas Asal', value: student.kelas, icon: GraduationCap, color: 'text-emerald-500', bg: 'bg-slate-50/50' }
                 ].map((item, i) => (
                   <div key={i} className={`${item.bg} p-5 rounded-[1.5rem] border border-white shadow-sm hover:shadow-md transition-all duration-300 group flex items-center gap-4`}>
                     <div className="bg-white p-3 rounded-xl shadow-sm group-hover:scale-110 transition-transform duration-500 text-emerald-500 shrink-0">
@@ -300,21 +292,11 @@ const ResultView = ({ student, onLogout }) => {
                    </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <motion.button
-                    whileHover={{ y: -5, scale: 1.02, shadow: '0 25px 50px rgba(0,0,0,0.1)' }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={handleDownloadSKL}
-                    className="action-button w-full bg-slate-900 text-white font-black py-6 px-8 rounded-2xl shadow-2xl flex items-center justify-center gap-3 transition-all relative overflow-hidden group"
-                  >
-                    <motion.div 
-                      animate={{ x: ['-200%', '200%'] }}
-                      transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-                    />
-                    <Download size={22} className="relative z-10" />
-                    <span className="relative z-10">UNDUH SKL DIGITAL (PDF)</span>
-                  </motion.button>
+                <div className="bg-emerald-50 p-8 rounded-[2rem] border-2 border-emerald-100 shadow-inner relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500"></div>
+                  <p className="text-emerald-900 text-base leading-relaxed font-bold text-center">
+                    Surat Keterangan Lulus yang cetak akan diberikan beserta lampiran nilai kelulusan, rekap nilai rapot serta hasil TKA pada Hari Rabu - Kamis, 3 - 4 Juni 2026
+                  </p>
                 </div>
               </div>
             ) : (
