@@ -295,7 +295,7 @@ const ResultView = ({ student, onLogout }) => {
                 <div className="bg-emerald-50 p-8 rounded-[2rem] border-2 border-emerald-100 shadow-inner relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500"></div>
                   <p className="text-emerald-900 text-base leading-relaxed font-bold text-center">
-                    Surat Keterangan Lulus yang cetak akan diberikan beserta lampiran nilai kelulusan, rekap nilai rapot serta hasil TKA pada Hari Rabu - Kamis, 3 - 4 Juni 2026
+                    Surat Keterangan Lulus yang cetak akan diberikan beserta lampiran nilai kelulusan, rekap nilai raport serta hasil TKA pada Hari Rabu - Kamis, 3 - 4 Juni 2026
                   </p>
                 </div>
               </div>
