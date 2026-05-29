@@ -75,7 +75,7 @@ const LoginView = ({ onLoginSuccess }) => {
                 />
               </div>
             </motion.div>
-            <h2 className="text-4xl font-black text-slate-900 tracking-tighter">Login Siswa</h2>
+            <h2 className="text-4xl font-black text-slate-900 tracking-tighter">Login Murid</h2>
             <p className="text-slate-500 font-bold mt-3 text-sm uppercase tracking-widest opacity-70">Portal Verifikasi Kelulusan</p>
           </header>
 
@@ -83,7 +83,7 @@ const LoginView = ({ onLoginSuccess }) => {
             <div className="space-y-3">
               <label className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] ml-2">
                 <KeyRound size={14} className="text-green-500" />
-                Nomor Induk Siswa Nasional
+                Nomor Induk Murid Nasional
               </label>
               <input
                 type="text"

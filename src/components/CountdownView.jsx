@@ -84,7 +84,7 @@ const CountdownView = ({ targetDate, onTimerEnd }) => {
           </motion.span>
         </h2>
         <p className="text-slate-500 font-bold text-lg max-w-2xl mx-auto leading-relaxed mb-16 px-4">
-          Siswa-siswi kelas 9 MTs Al Ikhsan Beji Kedungbanteng, siapkan diri Anda untuk langkah baru yang lebih tinggi.
+          Murid-murid kelas 9 MTs Al Ikhsan Beji Kedungbanteng, siapkan diri Anda untuk langkah baru yang lebih tinggi.
         </p>
       </motion.div>
       

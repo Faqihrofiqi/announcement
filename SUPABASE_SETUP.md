@@ -56,4 +56,5 @@ VITE_SUPABASE_ANON_KEY=your-long-anon-key-here
 ```
 
 ## 5. Tips Google Drive (SKL)
-Pastikan link PDF di Google Drive diatur ke **"Anyone with the link can view"** agar siswa bisa langsung mengunduhnya saat mengklik tombol di web.
+59: Pastikan link PDF di Google Drive diatur ke **"Anyone with the link can view"** agar murid bisa langsung mengunduhnya saat mengklik tombol di web.
+
