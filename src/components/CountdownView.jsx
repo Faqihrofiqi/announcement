@@ -17,7 +17,8 @@ const CountdownView = ({ targetDate, onTimerEnd }) => {
 
       if (difference > 0) {
         newTimeLeft = {
-          hours: Math.floor(difference / (1000 * 60 * 60)),
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
           minutes: Math.floor((difference / 1000 / 60) % 60),
           seconds: Math.floor((difference / 1000) % 60)
         };
@@ -35,10 +36,15 @@ const CountdownView = ({ targetDate, onTimerEnd }) => {
   }, [targetDate, onTimerEnd]);
 
   const timeData = [
+    { label: 'Hari', value: timeLeft.days },
     { label: 'Jam', value: timeLeft.hours },
     { label: 'Menit', value: timeLeft.minutes },
     { label: 'Detik', value: timeLeft.seconds }
-  ];
+  ].filter(item => {
+    // Tampilkan 'Hari' hanya jika nilainya > 0
+    if (item.label === 'Hari') return item.value > 0;
+    return true;
+  });
 
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden">
@@ -82,25 +88,25 @@ const CountdownView = ({ targetDate, onTimerEnd }) => {
         </p>
       </motion.div>
       
-      <div className="flex gap-4 md:gap-10 flex-wrap justify-center mb-20 z-10">
+      <div className="flex gap-2 md:gap-10 justify-center mb-20 z-10 w-full overflow-hidden whitespace-nowrap">
         {timeData.map((item, index) => (
           <motion.div 
             key={item.label}
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: index * 0.1, type: 'spring' }}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center flex-shrink-0"
           >
             <div className="relative group">
-              <div className="absolute inset-0 bg-green-500 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-              <div className="relative bg-white border border-slate-100 rounded-2xl md:rounded-[2.5rem] w-20 h-24 md:w-40 md:h-44 flex flex-col items-center justify-center shadow-[0_25px_60px_rgba(0,0,0,0.05)] border-b-4 md:border-b-8 border-b-green-600">
-                <span className="text-3xl md:text-7xl font-black text-slate-900 tracking-tighter tabular-nums mb-1">
+              <div className="absolute inset-0 bg-green-500 rounded-xl md:rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+              <div className="relative bg-white border border-slate-100 rounded-xl md:rounded-[2.5rem] w-[4.5rem] h-20 md:w-40 md:h-44 flex flex-col items-center justify-center shadow-[0_25px_60px_rgba(0,0,0,0.05)] border-b-4 md:border-b-8 border-b-green-600">
+                <span className="text-2xl md:text-7xl font-black text-slate-900 tracking-tighter tabular-nums mb-1">
                   {String(item.value || 0).padStart(2, '0')}
                 </span>
                 <div className="w-6 md:w-10 h-0.5 md:h-1 bg-slate-100 rounded-full"></div>
               </div>
             </div>
-            <span className="mt-6 text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] ml-1">{item.label}</span>
+            <span className="mt-4 md:mt-6 text-[8px] md:text-[11px] font-black text-slate-400 uppercase tracking-widest md:tracking-[0.4em] ml-1">{item.label}</span>
           </motion.div>
         ))}
       </div>
