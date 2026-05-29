@@ -8,9 +8,9 @@ import TransitionView from './components/TransitionView';
 
 function App() {
   // CONFIGURATION: Set the announcement date here
-  const ANNOUNCEMENT_DATE = '2026-05-29T22:00:00';
+  const ANNOUNCEMENT_DATE = '2026-06-06T10:00:00';
   // TESTING MODE: Ubah ke 'true' untuk melewati hitung mundur, atau 'false' untuk mode produksi
-  const [isTimeReached, setIsTimeReached] = useState(false);
+  const [isTimeReached, setIsTimeReached] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showTransition, setShowTransition] = useState(false);
   const [pendingUser, setPendingUser] = useState(null);
