@@ -83,7 +83,7 @@ const LoginView = ({ onLoginSuccess }) => {
             <div className="space-y-3">
               <label className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] ml-2">
                 <KeyRound size={14} className="text-green-500" />
-                Nomor Induk Murid Nasional
+                Nomor Induk Siswa Nasional
               </label>
               <input
                 type="text"

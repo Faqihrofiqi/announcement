@@ -187,7 +187,7 @@ function App() {
       <footer className="py-10 px-6 text-center border-t border-slate-200/50 bg-white/30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            &copy; 2026 MTs Al Ikhsan Beji Kedungbanteng • Dikembangkan dengan ❤️ untuk Murid
+            &copy; 2026 MTs Al Ikhsan Beji Kedungbanteng • Dikembangkan dengan ❤️ untuk para Calon Pemimpin Masa Depan
           </p>
           <div className="flex gap-8">
             {['Pusat Bantuan', 'Kebijakan Privasi', 'Kontak Madrasah'].map((item) => (
