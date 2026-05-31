@@ -16,6 +16,11 @@ function App() {
   const [pendingUser, setPendingUser] = useState(null);
 
   useEffect(() => {
+    // Memastikan halaman scroll ke paling atas saat pertama kali dimuat
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     // Jalankan pengecekan waktu hanya jika tidak dalam mode testing manual
     if (isTimeReached === false) {
       const now = new Date();
